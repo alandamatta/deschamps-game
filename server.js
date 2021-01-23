@@ -45,6 +45,6 @@ sockets.on('disconnect', socket => {
 	game.removePlayer({playerId: socket.id});
 });
 
-server.listen(3000, () => {
-	console.log('> Server is listening to port 3000');
+server.listen(process.env.PORT || 3000, () => {
+	console.log('> Server is listening');
 });

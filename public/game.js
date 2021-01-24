@@ -133,8 +133,6 @@ export default function createGame() {
 	function addPointToThePlayer(player) {
 		player.score++;
 		const type = 'players-score-update';
-		// state.players[player.playerId] = player;
-		// console.log('add point to this player: ', player.playerId);
 		notifyAll({
 			type,
 			player

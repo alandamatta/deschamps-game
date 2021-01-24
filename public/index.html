@@ -15,6 +15,14 @@
             width: 500px;
             height: 500px;
         }
+
+        .pink {
+            color: pink;
+        }
+
+        .grey {
+            color: grey;
+        }
     </style>
     <script src="/socket.io/socket.io.js"></script>
 </head>
@@ -70,17 +78,18 @@
 			keyboardListener.subscribe(command => {
                 socket.emit('move-player', command);
             });
-			front.updateScore(game.state.players);
+			front.updateScore(game.state.players, playerId);
         });
 
 		socket.on('add-player', command => {
+			const playerId =  socket.id;
 			game.addPlayer(command);
-			front.updateScore(game.state.players);
+			front.updateScore(game.state.players, playerId);
         });
 
 		socket.on('remove-player', command => {
 			game.removePlayer(command);
-			front.updateScore(game.state.players);
+			front.updateScore(game.state.players, socket.id);
         });
 
 		socket.on('move-player', command => {
@@ -96,7 +105,7 @@
         });
 
 		socket.on('players-score-update', command => {
-			front.updateScore(game.state.players);
+			front.updateScore(game.state.players, socket.id);
         });
 
     </script>

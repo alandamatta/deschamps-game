@@ -1,10 +1,13 @@
-export default function ui(document, players) {
-	function scoreRow(players) {
+export default function ui(document) {
+	function scoreRow(players, playerId) {
+		var clazz;
 		var html = ``;
 		for (let player in players) {
+			console.log('player', clazz = players[playerId]);
+			clazz = player === playerId ? 'pink' : 'grey';
 			if (player) {
 				html += `
-				<tr>
+				<tr class="${clazz}">
 					<th scope="row">${player}</th>
 					<th>${players[player].score}</th>
 				</tr>
@@ -14,9 +17,8 @@ export default function ui(document, players) {
 		return html;
 	}
 
-	function updateScore(players) {
-		console.log('updateScore', players);
-		document.getElementById('score').innerHTML = scoreRow(players);
+	function updateScore(players, playerId) {
+		document.getElementById('score').innerHTML = scoreRow(players, playerId);
 	}
 
 	return {

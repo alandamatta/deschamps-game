@@ -20,11 +20,11 @@ game.subscribe(command => {
 
 sockets.on('connect', socket => {
 	const playerId = socket.id;
-	console.log(`Player connected on server with id ${playerId}`);
 
 	const player = {
 		playerId: socket.id
 	};
+
 	game.addPlayer(player);
 
 	socket.emit('setup', game.state);

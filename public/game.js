@@ -32,16 +32,19 @@ export default function createGame() {
 		const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width);
 		const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height);
 		const type = 'add-player';
+		const score = 0;
 		state.players[playerId] = {
 			x: playerX,
-			y: playerY
+			y: playerY,
+			score
 		};
 
 		notifyAll({
 			type,
 			playerId,
 			playerX,
-			playerY
+			playerY,
+			score
 		});
 
 	}
@@ -121,9 +124,21 @@ export default function createGame() {
 			fruit = state.fruits[fruitId];
 			if (playerX === fruit.x && playerY === fruit.y) {
 				removeFruit({fruitId});
+				addPointToThePlayer(player);
 			}
 		}
 
+	}
+
+	function addPointToThePlayer(player) {
+		player.score++;
+		const type = 'players-score-update';
+		// state.players[player.playerId] = player;
+		// console.log('add point to this player: ', player.playerId);
+		notifyAll({
+			type,
+			player
+		});
 	}
 
 	return {
